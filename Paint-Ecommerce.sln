@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.1684
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Paint-Ecommerce", "Paint-Ecommerce\Paint-Ecommerce.csproj", "{61E735CF-DA2A-495C-AF1E-1F95525E9D4D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{61E735CF-DA2A-495C-AF1E-1F95525E9D4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61E735CF-DA2A-495C-AF1E-1F95525E9D4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61E735CF-DA2A-495C-AF1E-1F95525E9D4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61E735CF-DA2A-495C-AF1E-1F95525E9D4D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {085B178C-2E8D-418C-9AC7-8465806A1AE8}
+	EndGlobalSection
+EndGlobal
