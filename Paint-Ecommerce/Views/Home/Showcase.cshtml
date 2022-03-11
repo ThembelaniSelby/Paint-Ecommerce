@@ -1,0 +1,48 @@
+﻿@model IEnumerable<Paint_Ecommerce.Models.Product>
+@{
+    Layout = null;
+}
+
+@foreach (var item in Model)
+{
+    <div class="intro-slider-container mb-5">
+        <div class="intro-slider owl-carousel owl-theme owl-nav-inside owl-light" data-toggle="owl"
+             data-owl-options='{
+                        "dots": true,
+                        "nav": false,
+                        "responsive": {
+                            "1200": {
+                                "nav": true,
+                                "dots": false
+                            }
+                        }
+                    }'>
+            <div class="intro-slide" style="background-image: url(Images/Uploads/Products/@item.Id/@item.ImageName);">
+                <div class="container intro-content">
+                    <div class="row justify-content-end">
+                        <div class="col-auto col-sm-7 col-md-6 col-lg-5">
+                            <h3 class="intro-subtitle text-third">Deals and Promotions</h3><!-- End .h3 intro-subtitle -->
+                            <h3 class="intro-title">@item.Name</h3>
+                            <h4 class="intro-title">@item.CategoryName</h4><!-- End .intro-title -->
+
+                            <div class="intro-price">
+                                <span class="text-third">
+                                 R @item.Price<sup>.00</sup>
+                                </span>
+                            </div><!-- End .intro-price -->
+
+                            <a href="/home/category?catid=@item.CategoryId" class="btn btn-primary btn-round">
+                                <span>Shop More</span>
+                                <i class="icon-long-arrow-right"></i>
+                            </a>
+                        </div><!-- End .col-lg-11 offset-lg-1 -->
+                    </div><!-- End .row -->
+                </div><!-- End .intro-content -->
+            </div><!-- End .intro-slide -->
+
+
+        </div><!-- End .intro-slider owl-carousel owl-simple -->
+
+        <span class="slider-loader"></span><!-- End .slider-loader -->
+    </div><!-- End .intro-slider-container -->
+}

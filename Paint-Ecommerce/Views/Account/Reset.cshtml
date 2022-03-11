@@ -1,0 +1,157 @@
+﻿@model Paint_Ecommerce.Models.ResetVM
+@{
+    ViewBag.Title = "Reset";
+}
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+        body {
+            background-color: white;
+        }
+
+        .rectangle {
+            background-color: white;
+        }
+
+        .categ {
+            width: 200px;
+            background-color: white;
+        }
+
+        .rectitle {
+            background-color: azure;
+        }
+
+        .button {
+            background-color: red; /* Green */
+            border: none;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            margin: 4px 2px;
+            cursor: pointer;
+            width: 100px;
+        }
+
+            .button:hover {
+                background-color: black;
+            }
+
+
+        .button1 {
+            font-size: 10px;
+        }
+    </style>
+</head>
+<div class="rectangle" style="margin-left:6px;color:black;">
+    <div class="rectitle" style="height:20px">
+        <div align="center"><h3 style="height:1em;font-size:1em">Reset Password</h3> </div>
+    </div>
+    @if ((TempData["Success Message"] != null) && (TempData["Success Message"].ToString() != "new") && (TempData["Success Message"].ToString() != "found") && (TempData["Success Message"].ToString() != "done"))
+    {
+        <div class="alert alert-success">
+            @TempData["Success Message"]
+        </div>
+    }
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            @if (TempData["Success Message"].ToString() != "done")
+            {
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="HasSidebar">First Name</label>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="HasSidebar">Phone Number</label>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="HasSidebar">Email</label>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.EmailAddress, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.EmailAddress, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                if (TempData["Success Message"].ToString() != "found")
+                {
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Reset" class="btn btn-primary" />
+                        </div>
+                    </div>
+                }
+            }
+
+            @if (TempData["Success Message"].ToString() == "done")
+            {
+                <div align="center">
+                    <h4>
+                        PASSWORD RESETTED
+                    </h4>
+                    <a href="/account/Login" style="font-size:10px" class="btn btn-primary">LOGIN</a>
+                </div>
+            }
+            <br />
+
+
+
+
+            @if (TempData["Success Message"].ToString() == "found")
+            {
+
+                <div class="rectitle" style="height:20px">
+                    <div align="center"><h3 style="height:1em;font-size:1em">NEW PASSWORD</h3> </div>
+                </div>
+                <br />
+                <p>We sent verification code to your Email</p>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="HasSidebar">Verification code</label>
+                    <div class="col-md-10">
+                        <input class="form-control" type="text" name="codee" title="Please provide the verification code you received on your email" required />
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="HasSidebar">Password</label>
+                    <div class="col-md-10">
+                        <input class="form-control" type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" name="Password" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" />
+                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="HasSidebar">Confirm Password</label>
+                    <div class="col-md-10">
+                        @Html.PasswordFor(model => model.ConfirmPassword, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Reset" class="btn btn-primary" />
+                    </div>
+                </div>
+                <br />
+            }
+
+        </div>
+    }
+</div>

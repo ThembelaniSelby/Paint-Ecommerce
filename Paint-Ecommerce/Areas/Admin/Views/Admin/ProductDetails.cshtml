@@ -1,0 +1,73 @@
+﻿@model Paint_Ecommerce.Models.ProductVM
+
+@{
+    ViewBag.Title = "ProductDetails";
+}
+
+
+<div>
+    <h4>Paint info</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            Color
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Color)
+        </dd>
+
+        <dt>
+            Description
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+
+
+
+        <dt>
+            Category Name
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CategoryName)
+        </dd>
+
+
+        <dt>
+            Image
+        </dt>
+
+        <dd>
+            <img src="/Images/Uploads/Products/@Model.Id/Thumbs/@Model.ImageName" alt="@Model.Name" style="width:200px;height:200px;object-fit:cover">
+        </dd>
+
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Quantity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Quantity)
+        </dd>
+
+    </dl>
+</div>

@@ -1,0 +1,448 @@
+﻿@model Paint_Ecommerce.Models.Order
+
+@{
+    ViewBag.Title = "Track Order";
+    Layout = null;
+}
+
+<!doctype html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <title>Track Order</title>
+    <link href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' rel='stylesheet'>
+    <link href='https://use.fontawesome.com/releases/v5.7.2/css/all.css' rel='stylesheet'>
+    <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+    <style>
+        body {
+            min-height: 50vh;
+            font-family: 'Exo 2';
+            font-size: 14px;
+            color: #fff;
+            background: #eee
+        }
+
+        .modal-content {
+            background-color: #42469d;
+            border-color: #42469d;
+            border-radius: 1rem
+        }
+
+
+        .modal-dialog {
+            max-width: 750px;
+            margin: 1.75rem auto
+        }
+
+        .show {
+            padding: 0
+        }
+
+        .modal-header {
+            border-bottom: none;
+            text-align: center
+        }
+
+            .modal-header .close {
+                padding: 1rem 1rem;
+                margin: -1rem -1rem -1rem 0;
+                color: #fff
+            }
+
+        :-moz-any-link:focus {
+            outline: none
+        }
+
+        .modal-title {
+            line-height: 3rem
+        }
+
+        .modal-body {
+            padding: 1rem
+        }
+
+        #progressbar {
+            margin-bottom: 3vh;
+            overflow: hidden;
+            color: white;
+            padding-left: 0px;
+            margin-top: 3vh
+        }
+
+            #progressbar li {
+                list-style-type: none;
+                font-size: 0.8rem;
+                width: 25%;
+                float: left;
+                position: relative;
+                font-weight: 400;
+                color: white
+            }
+
+            #progressbar #step1:before {
+                content: "";
+                color: white;
+                width: 20px;
+                height: 20px;
+                margin-left: 0px !important
+            }
+
+            #progressbar #step2:before {
+                content: "";
+                color: #fff;
+                width: 20px;
+                height: 20px;
+                margin-left: 32%
+            }
+
+            #progressbar #step3:before {
+                content: "";
+                color: #fff;
+                width: 20px;
+                height: 20px;
+                margin-right: 32%
+            }
+
+            #progressbar #step4:before {
+                content: "";
+                color: rgb(151, 149, 149, 0.651);
+                width: 20px;
+                height: 20px;
+                margin-right: 0px !important
+            }
+
+            #progressbar li:before {
+                line-height: 29px;
+                display: block;
+                font-size: 12px;
+                background: rgb(151, 149, 149);
+                border-radius: 50%;
+                margin: auto;
+                z-index: -1;
+                margin-bottom: 1vh
+            }
+
+            #progressbar li:after {
+                content: '';
+                height: 3px;
+                background: rgb(151, 149, 149, 0.651);
+                position: absolute;
+                left: 0%;
+                right: 0%;
+                margin-bottom: 2vh;
+                top: 8px;
+                z-index: 1
+            }
+
+        .progress-track {
+            padding: 0 8%
+        }
+
+        #progressbar li:nth-child(2):after {
+            margin-right: auto
+        }
+
+        #progressbar li:nth-child(1):after {
+            margin: auto
+        }
+
+        #progressbar li:nth-child(3):after {
+            float: left;
+            width: 68%
+        }
+
+        #progressbar li:nth-child(4):after {
+            margin-left: auto;
+            width: 132%
+        }
+
+        #progressbar li.active:before,
+        #progressbar li.active:after {
+            background: white
+        }
+
+        #three {
+            font-size: 1.2rem
+        }
+
+
+        .details {
+            padding: 2rem;
+            font-size: 1.4rem;
+            line-height: 3.5rem
+        }
+
+
+
+        .d-table {
+            width: 100%
+        }
+
+        .d-table-row {
+            width: 100%
+        }
+
+        .d-table-cell {
+            padding-left: 3rem
+        }
+
+
+        .col-3 {
+            display: grid;
+            text-align: end
+        }
+
+            .col-3 .d-table-row {
+                align-self: flex-end
+            }
+
+        .fa {
+            font-size: xx-large;
+            text-align: center;
+            width: 3rem;
+            padding: 0.5rem;
+            color: #42469d;
+            background-color: #fff;
+            border-radius: 2rem;
+            bottom: 0;
+            right: 0
+        }
+
+        button:active {
+            outline: none
+        }
+
+        button:focus {
+            outline: none
+        }
+
+        button {
+            margin-top: 50vh
+        }
+    </style>
+</head>
+<body oncontextmenu='return false' class='snippet-body'>
+
+    @if (Model.Status == "PAID" && Model.DeliveryStatus == "NEW")
+    {
+        <!-- Button to Open the Modal --> <button type="button" class="btn btn-primary d-flex mx-auto btn-lg" data-toggle="modal" data-target="#myModal"> Track your order </button> <!-- The Modal -->
+        <div class="modal fade" id="myModal">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title mx-auto">Order Status<br>Order Number-: @Model.OrderId</h4> <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div> <!-- Modal body -->
+                    <div class="modal-body">
+                        <div class="progress-track">
+                            <ul id="progressbar">
+                                <li class="step0 active " id="step1">Order placed</li>
+                                <li class="step0 active text-center" id="step2">In Transit</li>
+                                <li class="step0  text-right" id="step3"><span id="three">Out for Delivery</span></li>
+                                <li class="step0 text-right" id="step4">Delivered</li>
+                            </ul>
+                        </div>
+                        <div class="row">
+                            <div class="col-9">
+                                <div class="details d-table">
+                                    <div class="d-table-row">
+                                        <div class="d-table-cell"> Shipped by </div>
+                                        <div class="d-table-cell"> Admin </div>
+                                    </div>
+                                    <div class="d-table-row">
+                                        <div class="d-table-cell"> Estimated Delivery </div>
+                                        <div class="d-table-cell"> @ViewBag.D  </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="d-table-row"> <a href=#><i class="fa fa-phone" aria-hidden="true"></i></a> </div>
+                                <div class="d-table-row"> <a href=#><i class="fa fa-envelope" aria-hidden="true"></i></a> </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    @if (Model.Status == "PAID" && Model.DeliveryStatus == "TOBECOLLECTED")
+    {
+        <!-- Button to Open the Modal --> <button type="button" class="btn btn-primary d-flex mx-auto btn-lg" data-toggle="modal" data-target="#myModal"> Track your order </button> <!-- The Modal -->
+        <div class="modal fade" id="myModal">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title mx-auto">Order Status<br>Order Number-: @Model.OrderId</h4> <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div> <!-- Modal body -->
+                    <div class="modal-body">
+                        <div class="progress-track">
+                            <ul id="progressbar">
+                                <li class="step0 active " id="step1">Order placed</li>
+                                <li class="step0 active text-center" id="step2">In Transit</li>
+                                <li class="step0 active  text-right" id="step3"><span id="three">Out for Delivery</span></li>
+                                <li class="step0 text-right" id="step4">Collected</li>
+                            </ul>
+                        </div>
+                        <div class="row">
+                            <div class="col-9">
+                                <div class="details d-table">
+                                    <div class="d-table-row">
+                                        <div class="d-table-cell"> Shipped by </div>
+                                        <div class="d-table-cell"> Admin </div>
+                                    </div>
+                                    <div class="d-table-row">
+                                        <div class="d-table-cell"> Estimated Delivery </div>
+                                        <div class="d-table-cell"> @ViewBag.D  </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="d-table-row"> <a href=#><i class="fa fa-phone" aria-hidden="true"></i></a> </div>
+                                <div class="d-table-row"> <a href=#><i class="fa fa-envelope" aria-hidden="true"></i></a> </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    @if ((Model.Status == "PAID" )&&(Model.DeliveryStatus != "NEW")&& Model.DeliveryStatus!="SHIPPED" && Model.DeliveryStatus!="DELIVERED")
+    {
+        <!-- Button to Open the Modal --> <button type="button" class="btn btn-primary d-flex mx-auto btn-lg" data-toggle="modal" data-target="#myModal"> Track your order </button> <!-- The Modal -->
+        <div class="modal fade" id="myModal">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title mx-auto">Order Status<br>Order Number-: @Model.OrderId</h4> <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div> <!-- Modal body -->
+                    <div class="modal-body">
+                        <div class="progress-track">
+                            <ul id="progressbar">
+                                <li class="step0 active " id="step1">Order placed</li>
+                                <li class="step0 active text-center" id="step2">In Transit</li>
+                                <li class="step0   text-right" id="step3"><span id="three">Out for Delivery</span></li>
+                                <li class="step0 text-right" id="step4">Collected</li>
+                            </ul>
+                        </div>
+                        <div class="row">
+                            <div class="col-9">
+                                <div class="details d-table">
+                                    <div class="d-table-row">
+                                        <div class="d-table-cell"> Shipped by </div>
+                                        <div class="d-table-cell"> Admin </div>
+                                    </div>
+                                    <div class="d-table-row">
+                                        <div class="d-table-cell"> Estimated Delivery </div>
+                                        <div class="d-table-cell"> @ViewBag.D  </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="d-table-row"> <a href=#><i class="fa fa-phone" aria-hidden="true"></i></a> </div>
+                                <div class="d-table-row"> <a href=#><i class="fa fa-envelope" aria-hidden="true"></i></a> </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    @if (Model.Status == "PAID" && Model.DeliveryStatus == "SHIPPED")
+    {
+
+        <!-- Button to Open the Modal --> <button type="button" class="btn btn-primary d-flex mx-auto btn-lg" data-toggle="modal" data-target="#myModal"> Track your order </button> <!-- The Modal -->
+        <div class="modal fade" id="myModal">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title mx-auto">Order Status<br>Order Number-: @Model.OrderId</h4> <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div> <!-- Modal body -->
+                    <div class="modal-body">
+                        <div class="progress-track">
+                            <ul id="progressbar">
+                                <li class="step0 active " id="step1">Order placed</li>
+                                <li class="step0 active text-center" id="step2">In Transit</li>
+                                <li class="step0 active text-right" id="step3"><span id="three">Out for Delivery</span></li>
+                                <li class="step0 text-right" id="step4">Delivered</li>
+                            </ul>
+                        </div>
+                        <div class="row">
+                            <div class="col-9">
+                                <div class="details d-table">
+                                    <div class="d-table-row">
+                                        <div class="d-table-cell"> Shipped by </div>
+                                        <div class="d-table-cell"> Admin </div>
+                                    </div>
+                                    <div class="d-table-row">
+                                        <div class="d-table-cell"> Estimated Delivery </div>
+                                        <div class="d-table-cell"> @ViewBag.D  </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="d-table-row"> <a href=#><i class="fa fa-phone" aria-hidden="true"></i></a> </div>
+                                <div class="d-table-row"> <a href=#><i class="fa fa-envelope" aria-hidden="true"></i></a> </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    }
+
+    @if (Model.DeliveryStatus == "DELIVERED")
+    {
+        <!-- Button to Open the Modal --> <button type="button" class="btn btn-primary d-flex mx-auto btn-lg" data-toggle="modal" data-target="#myModal"> Track your order </button> <!-- The Modal -->
+        <div class="modal fade" id="myModal">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title mx-auto">Order Status<br>Order Number-: @Model.OrderId</h4> <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div> <!-- Modal body -->
+                    <div class="modal-body">
+                        <div class="progress-track">
+                            <ul id="progressbar">
+                                <li class="step0 active " id="step1">Order placed</li>
+                                <li class="step0 active text-center" id="step2">In Transit</li>
+                                <li class="step0 active text-right" id="step3"><span id="three">Out for Delivery</span></li>
+                                <li class="step0 active text-right" id="step4">Delivered</li>
+                            </ul>
+                        </div>
+                        <div class="row">
+                            <div class="col-9">
+                                <div class="details d-table">
+                                    <div class="d-table-row">
+                                        <div class="d-table-cell"> Shipped by </div>
+                                        <div class="d-table-cell"> Admin </div>
+                                    </div>
+                                    <div class="d-table-row">
+                                        <div class="d-table-cell"> Estimated Delivery </div>
+                                        <div class="d-table-cell"> @ViewBag.D  </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="d-table-row"> <a href=#><i class="fa fa-phone" aria-hidden="true"></i></a> </div>
+                                <div class="d-table-row"> <a href=#><i class="fa fa-envelope" aria-hidden="true"></i></a> </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    }
+
+    <script type='text/javascript' src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js'></script>
+    <script type='text/javascript'></script>
+</body>
+</html>

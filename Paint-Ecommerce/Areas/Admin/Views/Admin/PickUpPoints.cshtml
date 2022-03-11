@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Paint_Ecommerce.Models.PickPoint>
+
+@{
+    ViewBag.Title = "PickUpPoints";
+    Layout = null;
+}
+
+<h2>PickUpPoints</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.PointAddress)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DriverEmail)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PickUpPhone)
+        </th>
+       
+        <th>
+            @Html.DisplayNameFor(model => model.NumberPlate)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.PointAddress)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DriverEmail)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PickUpPhone)
+        </td>
+       
+        <td>
+            @Html.DisplayFor(modelItem => item.NumberPlate)
+        </td>
+       
+    </tr>
+}
+
+</table>

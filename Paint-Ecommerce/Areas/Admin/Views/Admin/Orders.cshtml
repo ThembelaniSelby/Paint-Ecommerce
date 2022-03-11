@@ -1,0 +1,121 @@
+﻿@model IEnumerable<Paint_Ecommerce.Models.OrdersForUserVM>
+@{
+    ViewBag.Title = "Orders";
+}
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+
+        body {
+            background-color: white;
+        }
+
+        .rectangle {
+            background-color: rgba(245, 245, 246, 0.40);
+        }
+
+        .categ {
+            width: 200px;
+            background-color: red;
+        }
+
+        .rectitle {
+            background-color: darkgoldenrod;
+        }
+
+        .button {
+            background-color: black; /* Green */
+            border: none;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            margin: 4px 2px;
+            cursor: pointer;
+            width: 100px;
+        }
+
+            .button:hover {
+                background-color: black;
+            }
+
+
+        .button1 {
+            font-size: 10px;
+        }
+    </style>
+</head>
+<div class="rectangle">
+
+    <div align="center"><h3>NEW ORDERS </h3> </div>
+    @if (!Model.Any())
+    {
+        <h3 class="text-center"> You have no orders.</h3>
+    }
+    else
+    {
+        <table class="table">
+            <tr>
+                <th>
+                    Order Number
+                </th>
+                <th>
+                    Order Details
+                </th>
+
+                <th>
+                    Date Placed
+                </th>
+
+                <th>
+                    Total
+                </th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.OrderNumber)
+                    </td>
+                    <td>
+                        @foreach (var item2 in item.ProductsAndQty)
+                        {
+                            @item2.Key @:x @item2.Value <br />
+
+
+
+
+
+
+
+
+                        }
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CreatedAt)
+                    </td>
+
+                    <td>
+                        R @Html.DisplayFor(modelItem => item.Total)
+                    </td>
+                    <td>
+                        
+                            <a href="/admin/admin/AddDelivery?id=@item.OrderNumber" class="btn btn-info">SECHEDULE DELIVERY</a>
+                            <a href="/admin/admin/AddPickDelivery?id=@item.OrderNumber" class="btn btn-info">SECHEDULE PICK POINT</a>
+
+
+                            <a href="/admin/admin/collectorder?id=@item.OrderNumber" class="btn btn-success">CONFIRM ORDER COLLECT</a>
+                            
+                       
+
+                        @*@Html.ActionLink("TRACK", "Track", "Account", new { id = item.OrderNumber }, new { @class = "btn btn-success" })*@
+
+                    </td>
+
+                </tr>
+            }
+        </table>
+    }
+</div>
+
+@Html.Action("ProcessedOrders","Admin")

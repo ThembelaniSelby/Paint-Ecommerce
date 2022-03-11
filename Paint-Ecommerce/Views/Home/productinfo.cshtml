@@ -1,0 +1,245 @@
+﻿@model Paint_Ecommerce.Models.Product
+
+<main class="main">
+    <nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
+        <div class="container d-flex align-items-center">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item"><a href="/Home/Products">Products</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Paint Info</li>
+            </ol>
+
+            <nav class="product-pager ml-auto" aria-label="Product">
+                <a class="product-pager-link product-pager-prev" href="#" aria-label="Previous" tabindex="-1">
+                    <i class="icon-angle-left"></i>
+                    <span>Prev</span>
+                </a>
+
+                <a class="product-pager-link product-pager-next" href="#" aria-label="Next" tabindex="-1">
+                    <span>Next</span>
+                    <i class="icon-angle-right"></i>
+                </a>
+            </nav><!-- End .pager-nav -->
+        </div><!-- End .container -->
+    </nav><!-- End .breadcrumb-nav -->
+
+    <div class="page-content">
+        <div class="container">
+            <div class="product-details-top">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="product-gallery product-gallery-separated">
+                            <span class="product-label label-sale">Sale</span>
+                            <figure class="product-separated-item">
+                                <img src="~/Images/Uploads/Products/@Model.Id/@Model.ImageName" data-zoom-image="Images/Uploads/Products/@Model.Id/@Model.ImageName" alt="product image">
+
+                                <a href="#" id="btn-separated-gallery" class="btn-product-gallery">
+                                    <i class="icon-arrows"></i>
+                                </a>
+                            </figure>
+
+
+                        </div><!-- End .product-gallery -->
+                    </div><!-- End .col-md-6 -->
+
+                    <div class="col-md-6">
+                        <div class="product-details sticky-content">
+                            <h1 class="product-title">@Model.Name</h1><!-- End .product-title -->
+
+                            <div class="ratings-container">
+                                <div class="ratings">
+                                    <div class="ratings-val" style="width: @ViewBag.Rating"></div><!-- End .ratings-val -->
+                                </div><!-- End .ratings -->
+                                <a class="ratings-text" href="#product-accordion" id="review-link">( @ViewBag.Tot Reviews )</a>
+                            </div><!-- End .rating-container -->
+
+                            <div class="product-price">
+                                <span class="new-price">R @Model.Price</span>
+                            </div><!-- End .product-price -->
+                            @*<div class="product-countdown" data-until="2022, 10, 29"></div>*@
+                            <form action="/home/addtocart" method="get">
+                                <div style="display:none">
+                                    <input type="number" name="id" hidden value="@Model.Id">
+
+                                </div>
+
+                                <div class="details-filter-row details-row-size">
+                                    <label for="size">Color:</label>
+                                    <div class="select-custom">
+                                        <select name="color" id="color" class="form-control">
+                                            <option value="#" selected="selected">Select a color</option>
+                                            <option value="red">RED</option>
+                                            <option value="blue">BLUE</option>
+                                            <option value="yellow">YELLOW</option>
+                                            <option value="white">WHITE</option>
+                                        </select>
+                                    </div><!-- End .select-custom -->
+
+                                    <a href="#" class="size-guide"><i class="icon-th-list"></i>color guide</a>
+                                </div><!-- End .details-filter-row -->
+
+                                <div class="details-filter-row details-row-size">
+                                    <label for="qty">Qty:</label>
+                                    <div class="product-details-quantity">
+                                        <input type="number" id="qty" name="qty" class="form-control" value="1" min="1" max="100" step="1" data-decimals="0" required>
+                                    </div><!-- End .product-details-quantity -->
+                                </div><!-- End .details-filter-row -->
+                                <div class="product-details-action">
+                                <input type="submit" class="btn-product btn-cart" value="add to cart" />
+                                   
+                                </div><!-- End .product-details-action -->
+                            </form>
+
+                           
+
+                            <div class="product-details-footer">
+                                <div class="product-cat">
+                                    <span>Category:</span>
+                                    <a href="/home/category?catid=@Model.CategoryId">@Model.CategoryName</a>,
+                                </div><!-- End .product-cat -->
+
+                                <div class="social-icons social-icons-sm">
+                                    <span class="social-label">Share:</span>
+                                    <a href="#" class="social-icon" title="Facebook" target="_blank"><i class="icon-facebook-f"></i></a>
+                                    <a href="#" class="social-icon" title="Twitter" target="_blank"><i class="icon-twitter"></i></a>
+                                    <a href="#" class="social-icon" title="Instagram" target="_blank"><i class="icon-instagram"></i></a>
+                                    <a href="#" class="social-icon" title="Pinterest" target="_blank"><i class="icon-pinterest"></i></a>
+                                </div>
+                            </div><!-- End .product-details-footer -->
+
+                            <div class="accordion accordion-plus product-details-accordion" id="product-accordion">
+                                <div class="card card-box card-sm">
+                                    <div class="card-header" id="product-desc-heading">
+                                        <h2 class="card-title">
+                                            <a class="collapsed" role="button" data-toggle="collapse" href="#product-accordion-desc" aria-expanded="false" aria-controls="product-accordion-desc">
+                                                Description
+                                            </a>
+                                        </h2>
+                                    </div><!-- End .card-header -->
+                                    <div id="product-accordion-desc" class="collapse" aria-labelledby="product-desc-heading" data-parent="#product-accordion">
+                                        <div class="card-body">
+                                            <div class="product-desc-content">
+                                                @Model.Description
+                                            </div><!-- End .product-desc-content -->
+                                        </div><!-- End .card-body -->
+                                    </div><!-- End .collapse -->
+                                </div><!-- End .card -->
+
+                                <div class="card card-box card-sm">
+                                    <div class="card-header" id="product-info-heading">
+                                        <h2 class="card-title">
+                                            <a role="button" data-toggle="collapse" href="#product-accordion-info" aria-expanded="true" aria-controls="product-accordion-info">
+                                                Additional Information
+                                            </a>
+                                        </h2>
+                                    </div><!-- End .card-header -->
+                                    <div id="product-accordion-info" class="collapse show" aria-labelledby="product-info-heading" data-parent="#product-accordion">
+                                        <div class="card-body">
+                                            <div class="product-desc-content">
+
+                                                @Model.Description
+                                                <h3>Size</h3>
+                                                <p>L @Model.Liters</p>
+                                            </div><!-- End .product-desc-content -->
+                                        </div><!-- End .card-body -->
+                                    </div><!-- End .collapse -->
+                                </div><!-- End .card -->
+
+                                <div class="card card-box card-sm">
+                                    <div class="card-header" id="product-shipping-heading">
+                                        <h2 class="card-title">
+                                            <a class="collapsed" role="button" data-toggle="collapse" href="#product-accordion-shipping" aria-expanded="false" aria-controls="product-accordion-shipping">
+                                                Shipping & Returns
+                                            </a>
+                                        </h2>
+                                    </div><!-- End .card-header -->
+                                    <div id="product-accordion-shipping" class="collapse" aria-labelledby="product-shipping-heading" data-parent="#product-accordion">
+                                        <div class="card-body">
+                                            <div class="product-desc-content">
+                                                <p>
+                                                    We deliver to over 100 countries around the world. For full details of the delivery options we offer, please view our <a href="#">Delivery information</a><br>
+                                                    We hope you’ll love every purchase, but if you ever need to return an item you can do so within a month of receipt. For full details of how to make a return, please view our <a href="#">Returns information</a>
+                                                </p>
+                                            </div><!-- End .product-desc-content -->
+                                        </div><!-- End .card-body -->
+                                    </div><!-- End .collapse -->
+
+
+                                    <div class="card card-box card-sm">
+                                        <div class="card-header" id="product-review-heading">
+                                            <h2 class="card-title">
+                                                <a class="collapsed" role="button" data-toggle="collapse" href="#product-accordion-review" aria-expanded="false" aria-controls="product-accordion-review">
+                                                    Reviews (@ViewBag.Tot)
+                                                </a>
+                                            </h2>
+                                        </div><!-- End .card-header -->
+                                        <div id="product-accordion-review" class="collapse" aria-labelledby="product-review-heading" data-parent="#product-accordion">
+
+                                            <div class="card-body">
+                                                <div class="reviews">
+                                                    @Html.Action("ProReviews", "Home")
+
+                                                 
+
+
+
+
+
+                                                    <h2 class="title mb-1">Item Ratings?</h2><!-- End .title mb-2 -->
+                                                    <p class="mb-2">Use the form below co Comment Abount The This Item</p>
+
+                                                    <form action="/home/prouctcomment" method="post" class="contact-form mb-3">
+                                                        <div class="row">
+                                                            <div class="col-sm-6">
+                                                                <label for="cname" class="sr-only">Name</label>
+                                                                <input type="text" class="form-control" id="cname" name="Name" placeholder="Name *" required>
+                                                                <div style="display:none">
+                                                                    <input type="number" name="ProductId" value="@Model.Id" style="display:none" />
+
+                                                                </div>
+                                                            </div><!-- End .col-sm-6 -->
+
+                                                            <div class="col-sm-6">
+                                                                <label for="cemail" class="sr-only">Email</label>
+                                                                <input type="email" class="form-control" id="cemail" name="Email" placeholder="Email *" required>
+                                                            </div><!-- End .col-sm-6 -->
+                                                        </div><!-- End .row -->
+
+                                                        <div class="row">
+                                                            <div class="col-sm-6">
+                                                                <label for="cphone" class="sr-only">Phone</label>
+                                                                <input type="tel" class="form-control" id="cphone" name="Phone" placeholder="Phone">
+                                                            </div><!-- End .col-sm-6 -->
+
+                                                            <div class="col-sm-6">
+                                                                <label for="csubject" class="sr-only">Subject</label>
+                                                                <input type="text" class="form-control" id="csubject" name="Service" placeholder="Subject or Service">
+                                                            </div><!-- End .col-sm-6 -->
+                                                        </div><!-- End .row -->
+
+                                                        <label for="cmessage" class="sr-only">Message</label>
+                                                        <textarea class="form-control" cols="30" rows="4" id="cmessage" name="Comment" required placeholder="Message *"></textarea>
+
+                                                        <button type="submit" class="btn btn-outline-primary-2 btn-minwidth-sm">
+                                                            <span>SUBMIT</span>
+                                                            <i class="icon-long-arrow-right"></i>
+                                                        </button>
+                                                    </form><!-- End .contact-form -->
+                                                </div><!-- End .reviews -->
+                                            </div><!-- End .card-body -->
+                                        </div><!-- End .collapse -->
+                                    </div><!-- End .card -->
+
+                            </div><!-- End .accordion -->
+                        </div><!-- End .product-details -->
+                    </div><!-- End .col-md-6 -->
+                </div><!-- End .row -->
+            </div><!-- End .product-details-top -->
+
+            <hr class="mt-3 mb-5">
+
+            <h2 class="title text-center mb-4">You May Also Like</h2><!-- End .title text-center -->
+            @Html.Action("Prods","Home")
+        </div><!-- End .container -->
+    </div><!-- End .page-content -->
+</main><!-- End .main -->

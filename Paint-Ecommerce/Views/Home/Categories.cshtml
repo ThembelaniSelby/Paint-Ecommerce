@@ -1,0 +1,13 @@
+﻿@model IEnumerable<Paint_Ecommerce.Models.Category>
+
+@{
+    Layout = null;
+}
+@foreach (var item in Model)
+{
+
+    <li><a href="/home/category?catid=@item.Id"> @Html.DisplayFor(modelItem => item.Name)</a></li>
+   
+
+}
+

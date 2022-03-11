@@ -1,0 +1,34 @@
+﻿@model IEnumerable<Paint_Ecommerce.Models.Category>
+
+@{
+    ViewBag.Title = "Categories";
+}
+
+<h4>Categories</h4>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <form action="/admin/admin/updatecategory" method="post">
+            <td>
+                <input type="number" name="id" value="@item.Id" style="display:none" class="form-control" />
+
+                <input type="text" name="Name" value="@item.Name" class="form-control" />
+            </td>
+            <td>
+                <input type="submit" class="btn btn-info" value="UPDATE" />
+            </td>
+        </form>
+
+    </tr>
+}
+
+</table>

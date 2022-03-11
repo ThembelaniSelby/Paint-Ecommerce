@@ -1,0 +1,315 @@
+﻿
+@{
+    ViewBag.Title = "Update PAint info";
+
+}
+@model Paint_Ecommerce.Models.ProductVM
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        body {
+            background-color: white;
+        }
+
+        .rectangle {
+            background-color: rgba(245, 245, 246, 0.40);
+        }
+
+        .rectangle {
+            background-color: rgba(245, 245, 246, 0.40);
+        }
+
+        .categ {
+            width: 200px;
+            background-color: red;
+        }
+
+
+        .rectitle {
+            background-color: rgba(245, 245, 246, 0.40);
+        }
+
+        .button {
+            background-color: red; /* Green */
+            border: none;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            margin: 4px 2px;
+            cursor: pointer;
+            width: 100px;
+        }
+
+            .button:hover {
+                background-color: black;
+            }
+
+
+        .button1 {
+            font-size: 10px;
+        }
+
+
+
+
+
+        .card {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            max-width: 500px;
+            margin: auto;
+            text-align: center;
+            font-family: arial;
+            padding: 8px;
+        }
+
+        .price {
+            color: white;
+            font-size: 15px;
+        }
+
+        .namee {
+            color: white;
+        }
+
+        .card button {
+            border: none;
+            outline: 0;
+            padding: 8px;
+            color: white;
+            background-color: goldenrod;
+            text-align: center;
+            cursor: pointer;
+            width: 100%;
+            font-size: 10px;
+        }
+
+            .card button:hover {
+                opacity: 0.7;
+            }
+
+        .card dee {
+            border: none;
+            outline: 0;
+            padding: 8px;
+            color: white;
+            background-color: forestgreen;
+            text-align: center;
+            cursor: pointer;
+            width: 100%;
+            font-size: 10px;
+        }
+
+            .card dee:hover {
+                opacity: 0.7;
+            }
+    </style>
+</head>
+<div class="rectangle" style="color:black;">
+    <div class="rectitle" style="height:30px">
+        <div align="center"><h3>UPDATE PAINT INFO </h3> </div>
+    </div>
+
+    <style>
+
+
+        input#ImageName {
+            display: none;
+        }
+    </style>
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["Success"]
+        </div>
+    }
+
+    @using (Html.BeginForm("EditProduct", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.Id)
+            <div class="form-group">
+                @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        <div class="form-group">
+            @Html.Label("Color", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Color, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Color, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.Label("Paint Info", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.Description, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.Label("Qty", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="HasSidebar">Category</label>
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.CategoryId, Model.Categories, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2" for="HasSidebar">Paint Picture</label>
+            @Html.EditorFor(model => model.ImageName, new { htmlAttributes = new { @class = "form-control" } })
+            <div class="col-md-10">
+                <img src="/Images/Uploads/Products/@Model.Id/Thumbs/@Model.ImageName" />
+                <br /> <br />
+                <img id="imgpreview" src="#" />
+                <br /> <br />
+                <div class="col-md-10">
+                    <input type="file" name="file" id="ImageUpload" />
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="UPDATE PAINT" class="btn btn-info" />
+            </div>
+        </div>
+    </div>
+    }
+    <hr />
+    @*@if (!Model.GalleryImages.Any())
+    {
+        <h3>There Are No Gallery Images For This Product.</h3>
+    }
+    <div align="center">
+        <h2>
+            DRAG AND DROP OR SELECT ONE PICTURE AT A TIME
+        </h2>
+    </div>
+    <form action="/admin/Admin/SaveGalleryImages" method="post" enctype="multipart/form-data" class="dropzone" id="dropzoneForm">
+        <div class="fallback">
+            <input type="file" name="file" multiple=multiple />
+            <input type="submit" value="upload" />
+        </div>
+    </form>
+    <br />  <br />
+    @foreach (var image in Model.GalleryImages)
+    {
+        <div style="display:inline-block; margin-right:15px;">
+            <img src="/Images/Uploads/Products/@Model.Id/Gallery/Thumbs/@image" />
+            @Html.ActionLink("delete", "DeleteImage", "Admin", new { @class = "deleteimage", data_name = image })
+        </div>
+    }*@
+</div>
+</html>
+<script src="~/Scripts/ckeditor/ckeditor.js"></script>
+<script>CKEDITOR.replace("Description")</script>
+<link href="~/Scripts/dropzone/basic.css" rel="stylesheet" />
+<link href="~/Scripts/dropzone/dropzone.css" rel="stylesheet" />
+@section Scripts{
+    <script src="~/Scripts/dropzone/dropzone.js"></script>
+    <script>
+
+
+        $(function () {
+            /*
+            Preview Selected Image
+            */
+
+            function readURL(input) {
+                if (input.files && input.files[0])
+                {
+                    var reader = new FileReader();
+
+                    reader.onload = function (e)
+                    {
+                        $("img#imgpreview").attr("src", e.target.result).width(200).height(200);
+                    }
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+
+            $("#ImageUpload").change(function () {
+
+                readURL(this);
+            });
+            ///////////////////////////////////
+
+            /*
+            Dropzone JS
+            */
+
+            Dropzone.options.dropzoneForm = {
+
+                acceptedFiles: "image/*",
+                init: function () {
+                    this.on("complete", function (file) {
+                        if (this.getUploadingFiles().length === 0 && this.getQueuedFiles().length === 0) {
+                            location.reload();
+                        }
+                    });
+                    this.on("sending", function (file,xhr,formData) {
+                        formData.append("id",@Model.Id);
+                    });
+                }
+            };
+            ///////////////////////////////////
+
+
+            /*
+         Dropzone JS
+         */
+            $("a.deleteimage").click(function (e) {
+                e.preventDefault();
+
+                if (!confirm("Confirm deletion")) return false;
+
+                var $this = $(this);
+                var url = "/admin/update/DeleteImage";
+                var imageName = $this.data("name");
+
+                $.post(url, {id: @Model.Id , imageName: imageName},function (data) {
+
+                    $this.parent().fadeOut("fast");
+                });
+            });
+
+
+            ///////////////////////////////////
+
+        });
+
+
+
+    </script>
+}
+

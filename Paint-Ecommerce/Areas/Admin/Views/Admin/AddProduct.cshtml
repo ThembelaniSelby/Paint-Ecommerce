@@ -1,0 +1,248 @@
+﻿
+@model Paint_Ecommerce.Models.ProductVM
+@{
+    ViewBag.Title = "Add Product";
+}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        body {
+            background-color: white;
+        }
+
+        .rectangle {
+            background-color: rgba(245, 245, 246, 0.40);
+        }
+
+        .rectangle {
+            background-color: rgba(245, 245, 246, 0.40);
+        }
+
+        .categ {
+            width: 200px;
+            background-color: red;
+        }
+
+
+        .rectitle {
+            background-color: rgba(245, 245, 246, 0.40);
+        }
+
+        .button {
+            background-color: red; /* Green */
+            border: none;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            margin: 4px 2px;
+            cursor: pointer;
+            width: 100px;
+        }
+
+            .button:hover {
+                background-color: black;
+            }
+
+
+        .button1 {
+            font-size: 10px;
+        }
+
+
+
+
+
+        .card {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            max-width: 500px;
+            margin: auto;
+            text-align: center;
+            font-family: arial;
+            padding: 8px;
+        }
+
+        .price {
+            color: white;
+            font-size: 15px;
+        }
+
+        .namee {
+            color: white;
+        }
+
+        .card button {
+            border: none;
+            outline: 0;
+            padding: 8px;
+            color: white;
+            background-color: goldenrod;
+            text-align: center;
+            cursor: pointer;
+            width: 100%;
+            font-size: 10px;
+        }
+
+            .card button:hover {
+                opacity: 0.7;
+            }
+
+        .card dee {
+            border: none;
+            outline: 0;
+            padding: 8px;
+            color: white;
+            background-color: forestgreen;
+            text-align: center;
+            cursor: pointer;
+            width: 100%;
+            font-size: 10px;
+        }
+
+            .card dee:hover {
+                opacity: 0.7;
+            }
+    </style>
+</head>
+<div class="rectangle" style="color:black;">
+    <div class="rectitle" style="height:30px">
+        <div align="center"><h3>NEW PAINT </h3> </div>
+    </div>
+
+
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["Success"]
+        </div>
+    }
+    @using (Html.BeginForm("AddProduct", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group" id="kk">
+                @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.Label("Color", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Color, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Color, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+            <script>
+                var input = document.getElementById("kk");
+                input.addEventListener("keyup", function (event) {
+                    event.preventDefault();
+                    if (event.keyCode === 190) {
+                        alert("please use , Acomma insted of fullstop .");
+                    }
+
+                });
+
+            </script>
+
+            <div class="form-group">
+                @Html.Label("Paint info", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextAreaFor(model => model.Description, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                @Html.Label("Price: R", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-2" for="HasSidebar">Category</label>
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.CategoryId, Model.Categories, "Select Category", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Qty", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <label class="control-label col-md-2" for="HasSidebar">Paint Picture</label>
+                <div class="col-md-10">
+                    <input type="file" name="file" id="ImageUpload" />
+                    <img id="imgpreview" src="#" />
+                </div>
+            </div>
+
+
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Add Product" class="btn btn-primary" />
+                </div>
+            </div>
+        </div>
+    }
+</div>
+</html>
+@section Scripts{
+
+    <script src="~/Scripts/ckeditor/ckeditor.js"></script>
+    <script>CKEDITOR.replace("Description")</script>
+    <script>
+        $(function () {
+            /*
+            Preview Selected Image
+            */
+
+            function readURL(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        $("img#imgpreview").attr("src", e.target.result).width(200).height(200);
+                    }
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+
+            $("#ImageUpload").change(function () {
+
+                readURL(this);
+            });
+            ///////////////////////////////////
+
+
+        });
+
+
+
+    </script>
+}

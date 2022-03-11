@@ -1,0 +1,60 @@
+﻿
+@{
+    ViewBag.Title = "ScanQr";
+}
+
+<h2>Verify Inspection</h2>
+
+<div align="center">
+
+    <body style=" margin-top:10px">
+        <div align="center">
+            <h4 style="color:red">
+                Please not Area Will Be Used For Service
+            </h4>
+        </div>
+
+
+            <label for="length">Length</label>
+            <input type="number" id="Area" name="Area" value=0 class="form-control" required />
+
+        <div id="qr-reader" style="width:300px"></div>
+        <div style="color:black" id="qr-reader-results"></div>
+    </body>
+    <script src="~/html5-qrcode.min.js"></script>
+    <script>
+        function docReady(fn) {
+            // see if DOM is already available
+            if (document.readyState === "complete"
+                || document.readyState === "interactive") {
+                // call on next available tick
+                setTimeout(fn, 1);
+            } else {
+                document.addEventListener("DOMContentLoaded", fn);
+            }
+        }
+        docReady(function () {
+            var resultContainer = document.getElementById('qr-reader-results');
+            var lastResult, countResults = 0;
+            function onScanSuccess(decodedText, decodedResult) {
+                if (decodedText !== lastResult) {
+                    ++countResults;
+                    lastResult = decodedText;
+                    var area = document.getElementById("Area").value;
+
+                    if (area == 0) {
+                        alert("PLEASE NOTE THAT AREA IS REQUIRED");
+                        location.reload();
+                    }
+                    // Handle on success condition with the decoded message.
+                    window.location.replace("/driver/ApproveInspection?qr=" + decodedText + "&Area=" + area +"&id="+@ViewBag.Id);
+                }
+            }
+
+            var html5QrcodeScanner = new Html5QrcodeScanner(
+                "qr-reader", { fps: 20, qrbox: 280 });
+            html5QrcodeScanner.render(onScanSuccess);
+        });
+    </script>
+
+</div>

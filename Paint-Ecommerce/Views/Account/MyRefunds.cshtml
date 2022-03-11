@@ -1,0 +1,54 @@
+﻿@model IEnumerable<Paint_Ecommerce.Models.Refund>
+
+@{
+    ViewBag.Title = "MyRefunds";
+}
+
+<h2>MyRefunds</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Reason)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Destination)
+        </th>
+        
+        <th>
+            @Html.DisplayNameFor(model => model.OrderNum)
+        </th>
+        
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Reason)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Destination)
+        </td>
+     
+        <td>
+            @Html.DisplayFor(modelItem => item.OrderNum)
+        </td>
+       
+        <td>
+            @Html.DisplayFor(modelItem => item.Status)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Date)
+        </td>
+       
+    </tr>
+}
+
+</table>

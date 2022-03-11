@@ -1,0 +1,66 @@
+﻿@model IEnumerable<Paint_Ecommerce.Models.ProductReview>
+
+@{
+    ViewBag.Title = "Item Reviews";
+}
+
+<h2>Item Reviews</h2>
+
+
+<table class="table">
+    <tr>
+       
+        <th>
+            @Html.DisplayNameFor(model => model.Phone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Comment)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+       
+        <th>
+            @Html.DisplayNameFor(model => model.ProductName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Score)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+      
+        <td>
+            @Html.DisplayFor(modelItem => item.Phone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Comment)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+     
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Status)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Score)
+        </td>
+        <td>
+            <a href="mailto:@item.Email" class="btn btn-info">📧</a>
+            <a href="tel:@item.Phone" class="btn btn-success">📞</a>
+            <a href="/home/productinfo?id=@item.ProductId" class="btn btn-info">ITEM DETAILS</a>
+
+        </td>
+    </tr>
+}
+
+</table>

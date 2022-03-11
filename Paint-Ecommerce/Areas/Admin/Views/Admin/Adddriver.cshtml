@@ -1,0 +1,123 @@
+﻿@model Paint_Ecommerce.Models.UserVM
+@{
+    ViewBag.Title = "Add driver";
+
+}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+
+        body {
+            background-color: white;
+        }
+
+        .rectangle {
+            background-color: white;
+        }
+
+        .categ {
+            width: 200px;
+            background-color: white;
+        }
+
+        .rectitle {
+            background-color: azure;
+        }
+
+        .button {
+            background-color: red; /* Green */
+            border: none;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            margin: 4px 2px;
+            cursor: pointer;
+            width: 100px;
+        }
+
+            .button:hover {
+                background-color: black;
+            }
+
+
+        .button1 {
+            font-size: 10px;
+        }
+    </style>
+</head>
+<div class="rectangle" style="margin-left:6px;padding-right:12px;color:black;">
+    <h3>Add Constractor</h3>
+
+    @using (Html.BeginForm("Adddriver","Admin", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="HasSidebar">First Name</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="HasSidebar">Last Name</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="HasSidebar">Phone Number</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="HasSidebar">Email</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.EmailAddress, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.EmailAddress, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="HasSidebar">Password</label>
+            <div class="col-md-10">
+                <input class="form-control" type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" name="Password" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" />
+                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="HasSidebar">Confirm Password</label>
+            <div class="col-md-10">
+                @Html.PasswordFor(model => model.ConfirmPassword, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="ADD DRIVER" class="btn btn-info" />
+            </div>
+        </div>
+    </div>
+    }
+    <hr />
+</div>
+
+@Html.Action("Drivers","Admin")

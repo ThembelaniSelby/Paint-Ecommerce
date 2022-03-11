@@ -1,0 +1,209 @@
+﻿
+@model IEnumerable<Paint_Ecommerce.Models.ProductVM>
+@{
+    ViewBag.Title = "Products";
+}
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["Success"]
+    </div>
+}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        body {
+            background-color: white;
+        }
+
+        .rectangle {
+            background-color: rgba(245, 245, 246, 0.40);
+        }
+
+        .categ {
+            width: 200px;
+            background-color: red;
+        }
+
+        .rectitle {
+            background-color: rgba(245, 245, 246, 0.40);
+        }
+
+        .button {
+            background-color: black; /* Green */
+            border: none;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            margin: 4px 2px;
+            cursor: pointer;
+            width: 100px;
+        }
+
+            .button:hover {
+                background-color: black;
+            }
+
+
+        .button1 {
+            font-size: 10px;
+        }
+
+
+
+        .card {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            max-width: 500px;
+            margin: auto;
+            text-align: center;
+            font-family: arial;
+            padding: 8px;
+        }
+
+        .price {
+            color: black;
+            font-size: 15px;
+        }
+
+        .namee {
+            color: black;
+        }
+
+        .card button {
+            border: none;
+            outline: 0;
+            padding: 8px;
+            color: black;
+            background-color: goldenrod;
+            text-align: center;
+            cursor: pointer;
+            width: 100%;
+            font-size: 10px;
+        }
+
+            .card button:hover {
+                opacity: 0.7;
+            }
+
+        .card dee {
+            border: none;
+            outline: 0;
+            padding: 8px;
+            color: white;
+            background-color: forestgreen;
+            text-align: center;
+            cursor: pointer;
+            width: 100%;
+            font-size: 10px;
+        }
+
+            .card dee:hover {
+                opacity: 0.7;
+            }
+    </style>
+</head>
+@using PagedList.Mvc;
+@using PagedList;
+<body>
+    <div class="rectangle" align="center" style="margin-top:-8px;color:black;">
+        <div class="rectitle" style="height:30px">
+            <div align="center"><h3>INVETRY</h3> </div>
+        </div>
+        <hr />
+        <div align="left" style="margin-left:165px; position:absolute">
+            <button m=m type="button" class="btn btn-info" title='Click To Go to Stock Controllers Area' onclick="window.location.href='/admin/admin/addproduct'">NEW PAINT</button>
+        </div>
+        <div align="left" style="margin-left:25px;">
+            <select id="SelectCategory" name="SelectCategory" style="width:135px; height:35px">
+                <option value="0">All</option>
+                @foreach (var item in ViewBag.Categories)
+                {
+                    if (ViewBag.SelectedCat == item.Value)
+                    {
+                        <option selected="selected" value="@item.Value">@item.Text</option>
+                    }
+                    else
+                    {
+                        <option value="@item.Value">@item.Text</option>
+
+                    }
+                }
+            </select>
+
+
+            <hr />
+        </div>
+
+        @foreach (var product in ViewBag.OnePageOfProducts)
+        {
+
+            <div style="background-color:rgba(245, 245, 246, 0.40);display:inline-block">
+                <div class="card" align="right" style="display:inline-block">
+                    <h5 class="namee" style="line-height:0.5;text-transform:uppercase">  @product.Name</h5>
+                    <img src="/Images/Uploads/Products/@product.Id/Thumbs/@product.ImageName" alt="@product.Name" style="width:200px;height:200px;object-fit:cover">
+                    <p class="price">Price:R @product.Price</p>
+                    <p style="line-height:0.5;"><button onclick="window.location.href='/admin/admin/productdetails?qname=@product.Query'" style="background-color:#5bc0de;color:white">Info</button></p>
+                    <p style="line-height:0.5;">@Html.ActionLink("Update", "EditProduct", new { id = product.Id }, new { @class = "btn btn-block btn-info" })</p>
+                    <h5 class="namee" style="font-size:9pt;line-height:0.1;"> @product.Quantity  Qty</h5>
+                </div>
+                <hr />
+            </div>
+        }
+
+        @Html.PagedListPager((IPagedList)ViewBag.OnePageOfProducts, page => Url.Action("Products", new { page, catId = ViewBag.SelectedCat }))
+
+        @section Scripts{
+
+            <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
+            <script>
+                $(function () {
+
+
+
+                    /*
+                   Select Product From Specified Category
+                   */
+
+                    $("#SelectCategory").on("change", function () {
+
+                        var url = $(this).val();
+                        if (url) {
+                            window.location = "/admin/admin/Products?catId=" + url;
+                        }
+
+                        return false;
+                    });
+
+                    ///////////////////////////////////
+
+
+
+                    /*
+                   confirm Product deletion
+                   */
+                    $("a.delete").click(function () {
+                        if (!confirm("Confirm Product Deletion")) return false;
+                    });
+
+                    ///////////////////////////////////
+
+                });
+
+
+
+            </script>
+        }
+
+    </div>
+    <hr />
+</body>
+
+</html>

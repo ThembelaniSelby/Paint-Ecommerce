@@ -1,31 +1,80 @@
-﻿@{
-    ViewBag.Title = "Home Page";
-}
+﻿
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+<main class="main">
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
-</div>
+
+
+
+   @Html.Action("Showcase","Home")
+
+
+
+
+
+    <div class="mb-4">
+        @Html.Action("FirstSide","Home")
+        </div><!-- End .mb-4 -->
+
+    <div class="container">
+        <hr class="mb-0">
+    </div><!-- End .container -->
+
+    <div class="icon-boxes-container bg-transparent">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6 col-lg-3">
+                    <div class="icon-box icon-box-side">
+                        <span class="icon-box-icon text-dark">
+                            <i class="icon-rocket"></i>
+                        </span>
+                        <div class="icon-box-content">
+                            <h3 class="icon-box-title">Free Shipping</h3><!-- End .icon-box-title -->
+                            <p>Orders R550 or more</p>
+                        </div><!-- End .icon-box-content -->
+                    </div><!-- End .icon-box -->
+                </div><!-- End .col-sm-6 col-lg-3 -->
+
+                <div class="col-sm-6 col-lg-3">
+                    <div class="icon-box icon-box-side">
+                        <span class="icon-box-icon text-dark">
+                            <i class="icon-rotate-left"></i>
+                        </span>
+
+                        <div class="icon-box-content">
+                            <h3 class="icon-box-title">Free Returns</h3><!-- End .icon-box-title -->
+                            <p>Within 30 days</p>
+                        </div><!-- End .icon-box-content -->
+                    </div><!-- End .icon-box -->
+                </div><!-- End .col-sm-6 col-lg-3 -->
+
+                <div class="col-sm-6 col-lg-3">
+                    <div class="icon-box icon-box-side">
+                        <span class="icon-box-icon text-dark">
+                            <i class="icon-info-circle"></i>
+                        </span>
+
+                        <div class="icon-box-content">
+                            <h3 class="icon-box-title">Get 20% Off 1 Item</h3><!-- End .icon-box-title -->
+                            <p>when you sign up</p>
+                        </div><!-- End .icon-box-content -->
+                    </div><!-- End .icon-box -->
+                </div><!-- End .col-sm-6 col-lg-3 -->
+
+                <div class="col-sm-6 col-lg-3">
+                    <div class="icon-box icon-box-side">
+                        <span class="icon-box-icon text-dark">
+                            <i class="icon-life-ring"></i>
+                        </span>
+
+                        <div class="icon-box-content">
+                            <h3 class="icon-box-title">We Support</h3><!-- End .icon-box-title -->
+                            <p>24/7 amazing services</p>
+                        </div><!-- End .icon-box-content -->
+                    </div><!-- End .icon-box -->
+                </div><!-- End .col-sm-6 col-lg-3 -->
+            </div><!-- End .row -->
+        </div><!-- End .container -->
+    </div><!-- End .icon-boxes-container -->
+</main><!-- End .main -->
+
+       

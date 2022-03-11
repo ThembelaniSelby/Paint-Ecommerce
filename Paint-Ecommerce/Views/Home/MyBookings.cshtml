@@ -1,0 +1,60 @@
+﻿@model IEnumerable<Paint_Ecommerce.Models.Booking>
+
+@{
+    ViewBag.Title = "MyBookings";
+    Layout = null;
+}
+
+<h2>MyBookings</h2>
+
+<p>
+   <a href="/home/BookService" class="btn btn-info">ADD NEW BOOKING</a>
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Service Type
+        </th>
+        <th>
+            Inspection Date
+        </th>
+        <th>
+            Servicing Date
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Satatus)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Total)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+     
+        <td>
+            @Html.DisplayFor(modelItem => item.Servicetype)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.InspectionDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ServicingDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Satatus)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Total)
+        </td>
+        <td>
+           @if(item.StatusNum == 5)
+           {
+               <a href="/home/bookingPayment?id=@item.Id" class="btn btn-info">PAY FOR SERVICE</a>
+           }
+        </td>
+    </tr>
+}
+
+</table>

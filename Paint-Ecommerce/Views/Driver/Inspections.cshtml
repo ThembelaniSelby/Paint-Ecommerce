@@ -1,0 +1,88 @@
+﻿@model IEnumerable<Paint_Ecommerce.Models.Booking>
+
+@{
+    ViewBag.Title = "Inspections";
+}
+
+<h2>My Inspections</h2>
+
+
+<table class="table">
+    <tr>
+       
+    
+        <th>
+            Phone
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Address)
+        </th>
+       
+        <th>
+            Service type
+        </th>
+        <th>
+           Inspection Date
+        </th>
+        <th>
+            Servicing Date
+        </th>
+        <th>
+           Status
+        </th>
+  
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+      
+       
+        <td>
+            @Html.DisplayFor(modelItem => item.PhoneNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SUrbace)
+            @Html.DisplayFor(modelItem => item.Address)
+            @Html.DisplayFor(modelItem => item.ZipCode)
+        </td>
+     
+        <td>
+            @Html.DisplayFor(modelItem => item.Servicetype)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.InspectionDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ServicingDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Satatus)
+        </td>
+        
+       
+        <td>
+            @if (item.StatusNum == 3)
+            {
+                <a href="/Driver/StInspect?id=@item.Id" class="btn btn-info">START INSPECTION</a>
+            }
+            @if (item.StatusNum == 4)
+            {
+                @Html.ActionLink("APPROVE INSPECTION", "ScanQr", new { id = item.Id }, new { @clss = "btn btn-info" })
+            }
+
+            @if (item.StatusNum == 6)
+            {
+                @Html.ActionLink("START SERVICE", "StartSer", new { id = item.Id }, new { @clss = "btn btn-info" })
+            }
+
+
+            @if (item.StatusNum == 7)
+            {
+                @Html.ActionLink("APPROVE SERVICE COMPLETION", "ApproveSer", new { id = item.Id }, new { @clss = "btn btn-info" })
+            }
+        </td>
+    </tr>
+}
+
+</table>

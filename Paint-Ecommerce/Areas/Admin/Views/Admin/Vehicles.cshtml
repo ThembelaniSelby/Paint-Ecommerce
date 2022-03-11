@@ -1,0 +1,42 @@
+﻿@model IEnumerable<Paint_Ecommerce.Models.Vehicle>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Vehicles</title>
+</head>
+<body>
+   
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NumberPlate)
+            </th>
+            <th></th>
+        </tr>
+    
+    @foreach (var item in Model) {
+        <tr>
+            @using (Html.BeginForm("UpDateVehicle","Admin",FormMethod.Post))
+            {
+            <td>
+                <input type="text" name="id" value="@item.Id" style="display:none" />
+                <input type="text" name="NumberPlate" value="@item.NumberPlate" class="form-control" required />
+            </td>
+                <td>
+                    <input type="submit" value="UPDATE" class="btn btn-default" />
+
+                </td>
+            }
+            </tr>
+    }
+    
+    </table>
+</body>
+</html>

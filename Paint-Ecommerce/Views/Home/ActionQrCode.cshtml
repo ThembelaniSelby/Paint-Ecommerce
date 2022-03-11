@@ -1,0 +1,70 @@
+﻿
+
+<!DOCTYPE html>
+
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+        body {
+            background-color: white;
+        }
+
+        .rectangle {
+            background-color: rgba(245, 245, 246, 0.40);
+        }
+
+        .categ {
+            width: 200px;
+            background-color: red;
+        }
+
+        .rectitle {
+            background-color: darkgoldenrod;
+        }
+
+        .button {
+            background-color: black; /* Green */
+            border: none;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            margin: 4px 2px;
+            cursor: pointer;
+            width: 100px;
+        }
+
+            .button:hover {
+                background-color: black;
+            }
+
+
+        .button1 {
+            font-size: 10px;
+        }
+    </style>
+</head>
+<div class="rectangle" align="center" style="margin-top:30px; margin-left:50px;color:black">
+    <div class="inner" align="center" style="margin-top:-8px; margin-left:5px;margin-right:5px;margin-bottom:5px;color:black;background-color:rgba(245, 245, 246, 0.40)">
+
+        <p>
+            <h3>
+                YOUR  Order Verification Code Please Show it To your Driver
+                <h4>
+                    Or your order Manager When Collecting Your Order
+                </h4>
+            </h3>
+        </p>
+        @using (Html.BeginForm("QrGenerate", "ActionQrCode", FormMethod.Post))
+
+        {
+            <br />
+
+            <img src="@ViewBag.Url" width="400px" height="400px" alt="Alternate Text" />
+            <br />
+            <br />
+        }
+    </div>
+</div>
+
